@@ -1,0 +1,30 @@
+<!-- views/new.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create New To-Do List</title>
+</head>
+<body>
+
+  <h1>Create New To-Do List</h1>
+
+  <form action="/create" method="post">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="tasks">Tasks (comma-separated):</label>
+    <input type="text" id="tasks" name="tasks" required>
+
+    <button type="submit">Create List</button>
+  </form>
+
+  <a href="/">
+    <button>Back to Index</button>
+  </a>
+
+
+</body>
+</html>

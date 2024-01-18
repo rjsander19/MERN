@@ -1,0 +1,44 @@
+<!-- views/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do Lists</title>
+</head>
+<body>
+
+  <h1>To-Do Lists</h1>
+
+  <!-- "Create A List" button/link -->
+  <a href="/new">
+    <button>Create A List</button>
+  </a>
+
+  <% if (lists && lists.length > 0) { %>
+    <ul>
+      <% lists.forEach((list, index) => { %>
+        <li>
+          <a href="/show/<%= index %>">
+            <h2><%= list.title %></h2>
+          </a>
+          <ul>
+            <% list.tasks.forEach((task) => { %>
+              <li><%= task %></li>
+            <% }); %>
+          </ul>
+
+          <!-- "Edit" button -->
+          <a href="/edit/<%= index %>">
+            <button>Edit</button>
+          </a>
+        </li>
+      <% }); %>
+    </ul>
+  <% } else { %>
+    <p>No to-do lists available.</p>
+  <% } %>
+
+</body>
+</html>

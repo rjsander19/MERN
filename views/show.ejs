@@ -1,0 +1,29 @@
+<!-- views/show.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Show To-Do List</title>
+</head>
+<body>
+
+  <h1>To-Do List Details</h1>
+
+  <h2><%= list.title %></h2>
+
+  <p>Tasks:</p>
+  <ul>
+    <% list.tasks.forEach((task) => { %>
+      <li><%= task %></li>
+    <% }); %>
+  </ul>
+
+  <!-- Button/link to go back to the index page -->
+  <a href="/">
+    <button>Back to Index</button>
+  </a>
+
+</body>
+</html>

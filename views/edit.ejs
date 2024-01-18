@@ -1,0 +1,58 @@
+<!-- views/edit.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit To-Do List</title>
+</head>
+<body>
+
+  <h1>Edit To-Do List</h1>
+
+  <!-- Form for editing the to-do list -->
+  <form action="/edit/<%= listIndex %>" method="post">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" value="<%= list.title %>" required>
+
+    <label for="tasks">Tasks:</label>
+
+    <!-- Editable fields for tasks -->
+    <ul>
+      <% list.tasks.forEach((task, taskIndex) => { %>
+        <li>
+          <input type="text" name="tasks[]" value="<%= task %>" required>
+          <button type="button" onclick="removeTask(<%= taskIndex %>)">Remove Task</button>
+        </li>
+      <% }); %>
+    </ul>
+
+    <!-- Button to add a new task -->
+    <button type="button" onclick="addTask()">Add New Task</button>
+
+    <button type="submit">Save Changes</button>
+  </form>
+
+  <!-- Button/link to go back to the index page -->
+  <a href="/">
+    <button>Back to Index</button>
+  </a>
+
+  <script>
+    // JavaScript functions to dynamically add and remove tasks
+    function addTask() {
+      const tasksList = document.querySelector('ul');
+      const newTaskField = document.createElement('li');
+      newTaskField.innerHTML = '<input type="text" name="tasks[]" required> <button type="button" onclick="removeTask()">Remove Task</button>';
+      tasksList.appendChild(newTaskField);
+    }
+
+    function removeTask(index) {
+      const tasksList = document.querySelector('ul');
+      tasksList.removeChild(tasksList.childNodes[index]);
+    }
+  </script>
+
+</body>
+</html>
