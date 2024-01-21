@@ -61,25 +61,26 @@ app.get('/edit/:index', (req, res) => {
 });
 
 
+// Route to handle form submission and update the to-do list
 app.post('/edit/:index', (req, res) => {
-  const index = req.params.index;
-  const updatedTitle = req.body.title;
-  const updatedTasks = req.body.tasks.split(',').map(task => task.trim());
-
-  lists[index].title = updatedTitle;
-  lists[index].tasks = updatedTasks;
-
-  res.redirect('/');
-});
-
-//Show
-app.get('/show/:index', (req, res) => {
     const index = req.params.index;
-    const list = lists[index];
-    res.render('show', { list });
+    const updatedTitle = req.body.title;
+    const updatedTasks = Array.isArray(req.body.tasks) ? req.body.tasks : [req.body.tasks];
+  
+    lists[index].title = updatedTitle;
+    lists[index].tasks = updatedTasks;
+  
+    res.redirect('/');
   });
 
-// Start Server
+// Route to render the 'show' page
+app.get('/show/:index', (req, res) => {
+  const index = req.params.index;
+  const list = lists[index];
+  res.render('show', { list, listIndex: index });
+});
+
+// Server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
