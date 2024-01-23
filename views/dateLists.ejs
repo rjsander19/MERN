@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do Lists for <%= date %></title>
+</head>
+<body>
+
+  <h1>To-Do Lists for <%= date %></h1>
+
+  <!-- Display the to-do lists for the selected date -->
+  <% dateLists.forEach((list, listIndex) => { %>
+    <h2><%= list.title %></h2>
+    <ul>
+      <% list.tasks.forEach(task => { %>
+        <li><%= task %></li>
+      <% }); %>
+    </ul>
+  <% }); %>
+
+  <!-- Link/button to go back to the landing page -->
+  <a href="/">
+    <button>Back to Calendar</button>
+  </a>
+
+  </body>
+</html>

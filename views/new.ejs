@@ -5,26 +5,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create New To-Do List</title>
+  <title>Create a New To-Do List</title>
 </head>
 <body>
 
-  <h1>Create New To-Do List</h1>
+  <h1>Create a New To-Do List</h1>
 
+  <!-- Form for creating a new to-do list -->
   <form action="/create" method="post">
     <label for="title">Title:</label>
     <input type="text" id="title" name="title" required>
 
-    <label for="tasks">Tasks (comma-separated):</label>
-    <input type="text" id="tasks" name="tasks" required>
+    <label for="tasks">Tasks:</label>
 
-    <button type="submit">Create List</button>
+    <!-- Editable fields for tasks -->
+    <ul>
+      <li>
+        <input type="text" name="tasks[]" required>
+        <button type="button" onclick="removeTask(0)">Remove Task</button>
+      </li>
+    </ul>
+
+    <!-- Button to add a new task -->
+    <button type="button" onclick="addTask()">Add New Task</button>
+
+    <button type="submit">Create To-Do List</button>
   </form>
 
+  <!-- Button/link to go back to the index page -->
   <a href="/">
     <button>Back to Index</button>
   </a>
 
+  <script>
+    // JavaScript functions to dynamically add and remove tasks
+    function addTask() {
+      const tasksList = document.querySelector('ul');
+      const newTaskField = document.createElement('li');
+      newTaskField.innerHTML = '<input type="text" name="tasks[]" required> <button type="button" onclick="removeTask()">Remove Task</button>';
+      tasksList.appendChild(newTaskField);
+    }
+
+    function removeTask(index) {
+      const tasksList = document.querySelector('ul');
+      tasksList.removeChild(tasksList.childNodes[index]);
+    }
+  </script>
 
 </body>
 </html>

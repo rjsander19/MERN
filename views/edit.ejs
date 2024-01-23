@@ -5,6 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/edit.css" />
   <title>Edit To-Do List</title>
 </head>
 <body>
@@ -31,11 +32,15 @@
     <!-- Button to add a new task -->
     <button type="button" onclick="addTask()">Add New Task</button>
 
+    <!-- Button to delete the to-do list -->
+    <button type="button" onclick="deleteList()">Delete To-Do List</button>
+
+
     <button type="submit">Save Changes</button>
   </form>
 
   <!-- Button/link to go back to the index page -->
-  <a href="/">
+  <a href="/index">
     <button>Back to Index</button>
   </a>
 
@@ -51,6 +56,12 @@
     function removeTask(index) {
       const tasksList = document.querySelector('ul');
       tasksList.removeChild(tasksList.childNodes[index]);
+    }
+
+    function deleteList() {
+      if (confirm("Are you sure you want to delete this to-do list?")) {
+        window.location.href = '/delete/<%= listIndex %>';
+      }
     }
   </script>
 

@@ -1,0 +1,58 @@
+<!-- views/landing.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to My To-Do App</title>
+
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Include the fullcalendar styles -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" integrity="sha512-KXkS7cFeWpYwcoXxyfOumLyRGXMp7BTMTjwrgjMg0+hls4thG2JGzRgQtRfnAuKTn2KWTDZX4UdPg+xTs8k80Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Include moment.js for date handling -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- Include the fullcalendar library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js" integrity="sha512-o0rWIsZigOfRAgBxl4puyd0t6YKzeAw9em/29Ag7lhCQfaaua/mDwnpE2PVzwqJ08N7/wqrgdjc2E0mwdSY2Tg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+<body>
+
+  <h1>Welcome to My To-Do App</h1>
+
+  <!-- Calendar container -->
+  <div id="calendar"></div>
+
+  <!-- Link/button to go to the index page -->
+  <a href="/index">
+    <button>Go to To-Do Lists</button>
+  </a>
+
+  <!-- Script to initialize the fullcalendar -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize the fullcalendar
+      $('#calendar').fullCalendar({
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek,agendaDay'
+        },
+        events: [
+          // You can dynamically populate events based on your data here
+          // Example: { title: 'Event 1', start: '2022-01-01' },
+        ],
+        dayClick: function(date, jsEvent, view) {
+          // Redirect to the index page for the clicked date
+          window.location.href = '/index/' + date.format('YYYY-MM-DD');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

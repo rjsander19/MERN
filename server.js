@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const dotenv = require('dotenv');
+// const dateListsTemplate = require('./views/dateLists.ejs');
+
 
 dotenv.config();
 
@@ -32,33 +34,118 @@ db.once('open', () => {
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-// Route to render the 'index' page
+
+
+//ROUTES
+
+// Route to render the landing page
 app.get('/', (req, res) => {
+    res.render('landing');
+  });
+
+
+
+
+
+//NEW BELOW
+
+
+app.get('/index/:date', (req, res) => {
+    const selectedDate = req.params.date;
+    const dateLists = getListsForDate(selectedDate);
+  
+    // Use res.render without specifying the file extension
+    res.render('dateLists', { date: selectedDate, dateLists });
+  });
+  
+
+// Function to get to-do lists for a specific date (replace this with your actual data retrieval logic)
+function getListsForDate(date) {
+  // Example: Assume you have an array of objects with 'date' and 'lists' properties
+  // where 'date' is the date string and 'lists' is an array of to-do lists for that date
+  const dateLists = [
+    { date: '2024-01-21', lists: [{ title: 'List 1', tasks: ['Task 1', 'Task 2'] }] },
+    // Add more objects for other dates
+  ];
+
+  // Find the lists for the specified date
+  const selectedDateLists = dateLists.find(item => item.date === date);
+
+  return selectedDateLists ? selectedDateLists.lists : [];
+}
+
+
+
+
+
+
+
+
+//NEW ABOVE
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route to render the 'index' page
+app.get('/index', (req, res) => {
   res.render('index', { lists });
 });
+
+
+
 
 // Route to render the 'new' page
 app.get('/new', (req, res) => {
   res.render('new');
 });
 
+
+
 // Route to handle form submission and create a new to-do list
 app.post('/create', (req, res) => {
-  const title = req.body.title;
-  const tasks = req.body.tasks.split(',').map(task => task.trim());
+    const title = req.body.title;
+    const tasks = req.body.tasks.split(',').map(task => task.trim());
 
-  const newList = { title, tasks };
-  lists.push(newList);
+    const newList = { title, tasks };
+    lists.push(newList);
 
-  res.redirect('/');
+  res.redirect('/index');
 });
+
+
 
 // Route to render the 'edit' page
 app.get('/edit/:index', (req, res) => {
-  const index = req.params.index;
-  const list = lists[index];
+    const index = req.params.index;
+    const list = lists[index];
   res.render('edit', { list, listIndex: index });
 });
+
+
+// Route to handle delete request for a to-do list
+app.get('/delete/:index', (req, res) => {
+    const index = req.params.index;
+  
+    // Assuming lists is your array of to-do lists
+    if (index >= 0 && index < lists.length) {
+      // Remove the to-do list at the specified index
+      lists.splice(index, 1);
+      res.redirect('/index');
+    } else {
+      // Handle the case where the index is out of bounds
+      res.status(404).send('Not Found');
+    }
+  });
+
 
 
 // Route to handle form submission and update the to-do list
@@ -70,15 +157,27 @@ app.post('/edit/:index', (req, res) => {
     lists[index].title = updatedTitle;
     lists[index].tasks = updatedTasks;
   
-    res.redirect('/');
-  });
+  res.redirect('/index');
+});
+
+
 
 // Route to render the 'show' page
 app.get('/show/:index', (req, res) => {
-  const index = req.params.index;
-  const list = lists[index];
+    const index = req.params.index;
+    const list = lists[index];
   res.render('show', { list, listIndex: index });
 });
+
+
+
+
+
+
+
+
+
+
 
 // Server
 app.listen(PORT, () => {
