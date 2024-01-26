@@ -9,25 +9,34 @@
 </head>
 <body>
 
-  <h1>To-Do List Details</h1>
+  <h1>Show To-Do List</h1>
 
+  <!-- Display the details of the to-do list -->
   <h2><%= list.title %></h2>
-
-  <p>Tasks:</p>
   <ul>
-    <% list.tasks.forEach((task) => { %>
+    <% list.tasks.forEach(task => { %>
       <li><%= task %></li>
     <% }); %>
   </ul>
 
+  <!-- Form for assigning the to-do list to a date or date range -->
+  <form action="/assign-date" method="post">
+    <label for="selectedDate">Select Date:</label>
+    <input type="date" id="selectedDate" name="selectedDate" required>
+
+    <label for="endDate">Select End Date (Optional for range):</label>
+    <input type="date" id="endDate" name="endDate">
+
+    <!-- Include hidden input fields to pass list details to the server -->
+    <input type="hidden" name="listTitle" value="<%= list.title %>">
+    <input type="hidden" name="listTasks" value="<%= list.tasks %>">
+
+    <button type="submit">Assign to Date(s)</button>
+  </form>
+
   <!-- Button/link to go back to the index page -->
   <a href="/index">
     <button>Back to Index</button>
-  </a>
-
-  <!-- Button/link to go to the edit page -->
-  <a href="/edit/<%= listIndex %>">
-    <button>Edit</button>
   </a>
 
 </body>

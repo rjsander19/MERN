@@ -34,7 +34,7 @@
 
   <!-- Script to initialize the fullcalendar -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    $(document).ready(function() {
       // Initialize the fullcalendar
       $('#calendar').fullCalendar({
         header: {
@@ -45,6 +45,7 @@
         events: [
           // You can dynamically populate events based on your data here
           // Example: { title: 'Event 1', start: '2022-01-01' },
+          { title: 'Sample Event', start: '2024-01-01' },
         ],
         dayClick: function(date, jsEvent, view) {
           // Redirect to the index page for the clicked date
