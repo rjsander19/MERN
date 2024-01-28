@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'));
-
+app.use(express.static('public'));
 
 
 // MongoDB model for the assigned lists
