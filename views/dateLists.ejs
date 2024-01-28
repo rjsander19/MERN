@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +10,7 @@
   <h1>To-Do Lists for <%= date %></h1>
 
   <!-- Display the to-do lists for the selected date -->
+  <% console.log('Date Lists:', dateLists); %>
   <% dateLists.forEach((list, listIndex) => { %>
     <h2><%= list.title %></h2>
     <ul>
@@ -25,5 +25,5 @@
     <button>Back to Calendar</button>
   </a>
 
-  </body>
+</body>
 </html>

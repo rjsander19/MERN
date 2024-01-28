@@ -15,15 +15,20 @@ app.use(methodOverride('_method'));
 
 
 // MongoDB model for the assigned lists
-const AssignedList = mongoose.model('AssignedList', {
-    date: String,
+const AssignedListSchema = new mongoose.Schema({
+    date: Date,
     lists: [
       {
         title: String,
-        tasks: [String]
-      }
-    ]
+        tasks: [String],
+      },
+    ],
   });
+  
+  const AssignedList = mongoose.model('AssignedList', AssignedListSchema);
+  
+
+  
 
 const lists = [
     { title: 'Shopping List', tasks: ['Buy groceries', 'Pick up dry cleaning'] },
@@ -83,57 +88,65 @@ app.get('/index', (req, res) => {
     const selectedDate = req.params.date;
     const endDate = req.query.endDate; // Extract endDate from query parameters
     const dateLists = await getListsForDate(selectedDate, endDate);
-    console.log(dateLists);
+    console.log('Selected Date:', selectedDate);
+    console.log('Date Lists:', dateLists);
     res.render('dateLists', { date: selectedDate, dateLists });
   });
   
-  async function getListsForDate(date, endDate) {
+  async function getListsForDate(date) {
     try {
-      const assignedLists = await AssignedList.find({
-        date: {
-          $gte: date, // Greater than or equal to the selected date
-          $lte: endDate || date, // Less than or equal to the end date or the selected date
-        },
-      }).exec();
-      const dateLists = assignedLists.map((assigned) => assigned.lists).flat();
-      return dateLists;
+      const assignedList = await AssignedList.findOne({ date }).exec();
+  
+      console.log('Assigned List:', assignedList);
+  
+      if (assignedList) {
+        return assignedList.lists;
+      } else {
+        return [];
+      }
     } catch (error) {
       console.error('Error retrieving lists:', error);
       return [];
     }
   }
   
+  
+
+
+
   app.post('/assign-date', async (req, res) => {
     const selectedDate = req.body.selectedDate;
-    const endDate = req.body.endDate;
     const listTitle = req.body.listTitle;
     const listTasks = req.body.listTasks.split(',').map(task => task.trim());
-    const date = req.body.date;  // Add this line to extract the 'date' variable
-    console.log(`Assigned to-do list "${listTitle}" to date(s): ${selectedDate} to ${endDate || 'N/A'}`);
-  
+    const date = selectedDate;  // Use selectedDate instead of req.body.date
+
+    console.log(`Assigned to-do list "${listTitle}" to date: ${selectedDate}`);
+
     // Check if the date already has assigned lists
     let existingAssignedList = await AssignedList.findOne({ date }).exec();
-  
+
     // If not, create a new AssignedList
     if (!existingAssignedList) {
-      existingAssignedList = new AssignedList({
-        date,
-        lists: [{ title: listTitle, tasks: listTasks }]
-      });
+        existingAssignedList = new AssignedList({
+            date,
+            lists: [{ title: listTitle, tasks: listTasks }]
+        });
     } else {
-      // If yes, append the new list to the existing ones
-      existingAssignedList.lists.push({ title: listTitle, tasks: listTasks });
+        // If yes, append the new list to the existing ones
+        existingAssignedList.lists.push({ title: listTitle, tasks: listTasks });
     }
-  
+
     // Save or update the assignment in the MongoDB database
     try {
-      await existingAssignedList.save();
+        await existingAssignedList.save();
     } catch (error) {
-      console.error('Error saving assignment:', error);
+        console.error('Error saving assignment:', error);
     }
-  
+
     res.redirect('/index');
-  });
+});
+
+  
   
 
 
