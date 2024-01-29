@@ -1,4 +1,89 @@
 h1 {
-    font-size: 100
-    px;
+    font-size: 60px;
+    /* font-family: "Miss Magnolia Script", "Bradley Hand", cursive; */
+    letter-spacing: 0;
+    line-height: 0.7;
+    font-weight: 400;
+    text-transform: uppercase;
+    word-break: break-word;
+    word-spacing: -0.1em;
+    display: block;
+    font-style: normal;
+    color: #52738A;
+    text-align: center;
+    
 }
+
+
+.custom-button {
+    background-color: #E14852;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 50px;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Camp Bow Wow Color Scheme
+
+button background color: r:225 g:72 b:82 hex: #E14852  
+
+camp bow wow logo font color: r:152 g:44 b:57 hex: #982C39
+
+darker blue font color: r:89 g:114 b:136 hex: #597288
+
+yellow accent color: r:251 g:232 b:134 hex: #FBE886
+
+light blue backgound color: r:139 g:175 b:207 hex: #8BAFCF */
+

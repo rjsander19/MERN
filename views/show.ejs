@@ -14,6 +14,7 @@
 
   <!-- Display the details of the to-do list -->
   <h2><%= list.title %></h2>
+  
   <ul>
     <% list.tasks.forEach(task => { %>
       <li><%= task %></li>
@@ -28,11 +29,11 @@
     <!-- <label for="endDate">Select End Date (Optional for range):</label>
     <input type="date" id="endDate" name="endDate"> -->
 
-    <!-- Include hidden input fields to pass list details to the server -->
+    <!-- Hidden input fields to pass list details to the server -->
     <input type="hidden" name="listTitle" value="<%= list.title %>">
     <input type="hidden" name="listTasks" value="<%= list.tasks %>">
 
-    <button type="submit">Assign to Date(s)</button>
+    <button type="submit">Assign to Date</button>
   </form>
 
   <!-- Button/link to go back to the index page -->

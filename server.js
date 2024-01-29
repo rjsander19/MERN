@@ -14,6 +14,8 @@ app.use(methodOverride('_method'));
 app.use(express.static('public'));
 
 
+
+
 // MongoDB model for the assigned lists
 const AssignedListSchema = new mongoose.Schema({
     date: Date,
@@ -114,7 +116,7 @@ app.get('/index', (req, res) => {
 
 
 
-  app.post('/assign-date', async (req, res) => {
+app.post('/assign-date', async (req, res) => {
     const selectedDate = req.body.selectedDate;
     const listTitle = req.body.listTitle;
     const listTasks = req.body.listTasks.split(',').map(task => task.trim());
